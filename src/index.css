@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "VT323", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Press Start 2P", system-ui, sans-serif;
+}
+
+body {
+  background-color: #000000;
+  color: #00ffff;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+}
+
+.glitch-text::before, .glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.glitch-text::before {
+  color: #0ff;
+  z-index: -1;
+  transform: translate(-4px, 2px);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  color: #f0f;
+  z-index: -2;
+  transform: translate(4px, -2px);
+  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); }
+  20% { clip-path: inset(60% 0 10% 0); }
+  40% { clip-path: inset(40% 0 50% 0); }
+  60% { clip-path: inset(80% 0 5% 0); }
+  80% { clip-path: inset(10% 0 70% 0); }
+  100% { clip-path: inset(30% 0 50% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); }
+  20% { clip-path: inset(30% 0 20% 0); }
+  40% { clip-path: inset(70% 0 10% 0); }
+  60% { clip-path: inset(20% 0 50% 0); }
+  80% { clip-path: inset(50% 0 30% 0); }
+  100% { clip-path: inset(5% 0 80% 0); }
+}
+
+/* Scanlines */
+.scanlines {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
+  background-size: 100% 4px;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Static Noise */
+.static-noise {
+  position: fixed;
+  top: -50%; left: -50%; right: -50%; bottom: -50%;
+  width: 200%; height: 200%;
+  background: transparent url('https://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+  animation: static-anim .2s infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 40;
+}
+
+@keyframes static-anim {
+  0% { transform: translate(0,0) }
+  10% { transform: translate(-2%,-2%) }
+  20% { transform: translate(-4%,2%) }
+  30% { transform: translate(2%,-4%) }
+  40% { transform: translate(-2%,6%) }
+  50% { transform: translate(-4%,2%) }
+  60% { transform: translate(6%,0) }
+  70% { transform: translate(0,4%) }
+  80% { transform: translate(-6%,0) }
+  90% { transform: translate(4%,2%) }
+  100% { transform: translate(2%,0) }
+}
+
+/* Screen Tearing */
+.screen-tear {
+  animation: tear-anim 4s infinite;
+}
+
+@keyframes tear-anim {
+  0%, 95% { transform: translateX(0); }
+  96% { transform: translateX(-10px) skewX(10deg); }
+  97% { transform: translateX(10px) skewX(-10deg); }
+  98% { transform: translateX(-5px) skewX(5deg); }
+  99% { transform: translateX(0); }
+}
